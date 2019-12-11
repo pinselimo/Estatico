@@ -11,16 +11,16 @@
   </title>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <link href="assets/css/main.css" media="screen, print" rel="stylesheet" type="text/css"/>
+  <link href="../../assets/css/main.css" media="screen, print" rel="stylesheet" type="text/css"/>
  </head>
  <body>
   <!-- Header -->
   <header id="header">
-   <a class="logo" href="#">
+   <a class="logo" href="javascript:history.back()">
     <strong>
-     TEACHING
+     BLOG
     </strong>
-    materials
+    space
    </a>
    <!-- <nav class="nav mobile">
                 <a href="#menu">Menu</a>
@@ -28,8 +28,13 @@
    <nav class="nav">
     <ul class="actions">
      <li>
-      <a class="scrolly" href="index.html">
+      <a class="scrolly" href="../blog_0.html">
        Home
+      </a>
+     </li>
+     <li>
+      <a href="javascript:history.back()">
+       Back
       </a>
      </li>
     </ul>
@@ -87,7 +92,7 @@
      Under its rubber feet the Connect N3 has four Phillips screws and after some fiddling the back plate comes off, revealing the internals of our device.
     </p>
     <p>
-     <img alt="Opened up" src="images/IMG_0786.JPG"/>
+     <img alt="Opened up" src="images/IMG_0786.JPG" width="500px"/>
     </p>
     <p>
      There’s a micro with an huge heatsink right besides the coax input, which supposedly does some codec work, I didn’t care enough to take off the heatsink so if anybody knows the model or exact task of it, feel free to leave a comment down below.
@@ -97,8 +102,8 @@
      It could be looked into its configuration further via the JTAG port beside it, I didn’t care enough though.
     </p>
     <p>
-     <img alt="USB" src="images/IMG_0777.JPG"/>
-     <img alt="WIFI card" src="images/IMG_0778.JPG"/>
+     <img alt="USB" src="images/IMG_0777.JPG" width="500px"/>
+     <img alt="WIFI card" src="images/IMG_0778.JPG" width="500px"/>
     </p>
     <p>
      USB 2.0 standard defines 4 contacts: ACVV, DPLUS, DMINUS and AGND, all four of which lead from the controller right under a shield, where we can guess, that our main processor resides.
@@ -108,7 +113,7 @@
      From beneath the shield four traces lead to a debugging port, likely UART. So I grabbed my multimeter and looked for the ground pin, connected my UART USB interface and booted the N3 up.
     </p>
     <p>
-     <img alt="Connection established" src="images/IMG_0782.JPG"/>
+     <img alt="Connection established" src="images/IMG_0782.JPG" width="500px"/>
     </p>
    </div>
   </section>
@@ -153,15 +158,15 @@
    </div>
   </footer>
   <!-- Scripts -->
-  <script src="assets/js/jquery.min.js">
+  <script src="../../assets/js/jquery.min.js">
   </script>
-  <script src="assets/js/jquery.scrolly.min.js">
+  <script src="../../assets/js/jquery.scrolly.min.js">
   </script>
-  <script src="assets/js/skel.min.js">
+  <script src="../../assets/js/skel.min.js">
   </script>
-  <script src="assets/js/util.js">
+  <script src="../../assets/js/util.js">
   </script>
-  <script src="assets/js/main.js">
+  <script src="../../assets/js/main.js">
   </script>
  </body>
 </html>

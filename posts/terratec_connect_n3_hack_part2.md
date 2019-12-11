@@ -1,7 +1,9 @@
 # TerraTec Connect N3 Hack Part 2
 
 ## Opening doors, exploring the jungle
-Having my UART stick connected to my computer I started screen to try out different bitrates, ending up at 115.200 bit/s which finally had me seeing meaningful ASCII on my screen and entering my home field: the software. ![Boot screen](images/conn_2.jpg)
+Having my UART stick connected to my computer I started screen to try out different bitrates, ending up at 115.200 bit/s which finally had me seeing meaningful ASCII on my screen and entering my home field: the software.
+
+![Boot screen](images/conn_2.jpg)
 
 ### Opening doors and finding keys aka the interesting part
 
@@ -47,9 +49,11 @@ Changing the boot variables to: ```arg 4: init=/sbin/sh```
 had the kernel panic, so i tried:  ```arg 4: init=/bin/sh```
 
 Et voilá we boot into the shell as root user:
+
 ![Root](images/conn_4.jpg)
 
 Unfortunately we also end up having a read only file system, so no password change via passwd but we can inspect the /etc/passwd and ```/etc/shadow``` file:
+
 ![Passwd](images/conn_15.jpg)
 
 As we can see, there are some users w/o password and the root and Admin user share root privileges and the same hash. As with many of these devices, googling the hash reveals the password behind it way too easy. So now we can boot up the device normally, using the init process and login as root having a r/w file system.

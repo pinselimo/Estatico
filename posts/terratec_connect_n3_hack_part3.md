@@ -17,7 +17,6 @@ When I tried installing the driver on a separate Windows 10 machine, unfortunate
 
 ### Just never settle for poor results
 
-
 After I had messed around a lot with compatibility mode and running stuff as admin in Windows and had finally come to the conclusion, that i might have to reverse engineer the driver or just solder an USB connector to the traces giving me at least the DVB-S stick part of the device, off which i could stream into the network via a Raspberry PI, I finally made up my mind thinking:
 
 > "I ought also just have a look at good ol’ Task Manager."

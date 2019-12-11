@@ -11,16 +11,16 @@
   </title>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <link href="assets/css/main.css" media="screen, print" rel="stylesheet" type="text/css"/>
+  <link href="../../assets/css/main.css" media="screen, print" rel="stylesheet" type="text/css"/>
  </head>
  <body>
   <!-- Header -->
   <header id="header">
-   <a class="logo" href="#">
+   <a class="logo" href="javascript:history.back()">
     <strong>
-     TEACHING
+     BLOG
     </strong>
-    materials
+    space
    </a>
    <!-- <nav class="nav mobile">
                 <a href="#menu">Menu</a>
@@ -28,8 +28,13 @@
    <nav class="nav">
     <ul class="actions">
      <li>
-      <a class="scrolly" href="index.html">
+      <a class="scrolly" href="../blog_0.html">
        Home
+      </a>
+     </li>
+     <li>
+      <a href="javascript:history.back()">
+       Back
       </a>
      </li>
     </ul>
@@ -54,7 +59,9 @@
     </header>
     <p>
      Having my UART stick connected to my computer I started screen to try out different bitrates, ending up at 115.200 bit/s which finally had me seeing meaningful ASCII on my screen and entering my home field: the software.
-     <img alt="Boot screen" src="images/conn_2.jpg"/>
+    </p>
+    <p>
+     <img alt="Boot screen" src="images/conn_2.jpg" width="500px"/>
     </p>
     <h3>
      Opening doors and finding keys aka the interesting part
@@ -64,22 +71,15 @@
      <br/>
      Luckily a one second windows to interrupt the booting process is offered to us:
     </p>
-    <p>
-     ~~~uboot
-PB93 (ar7241 - Virian) U-boot
+    <pre><code class="uboot">PB93 (ar7241 - Virian) U-boot
 DRAM:
 sri
 ar7240_ddr_initial_config(133): virian ddr1 init
-    </p>
-    <hr/>
-    <p>
-     Hit any key to stop autoboot:  1  0
-    </p>
-    <h2>
-     Booting image at 9f300000 ...
-    </h2>
-    <p>
-     Image Name:   Linux Kernel Image
+____________________________________________________
+
+Hit any key to stop autoboot:  1  0
+## Booting image at 9f300000 ...
+   Image Name:   Linux Kernel Image
    Created:      2011-06-14  10:12:25 UTC
    Image Type:   MIPS Linux Kernel Image (lzma compressed)
    Data Size:    783960 Bytes = 765.6 kB
@@ -88,32 +88,22 @@ ar7240_ddr_initial_config(133): virian ddr1 init
    Verifying Checksum ... OK
    Uncompressing Kernel Image ... OK
 No initrd
-    </p>
-    <h2>
-     Transferring control to Linux (at address 80211000) ...
-    </h2>
-    <h2>
-     Giving linux memsize in bytes, 16777216
-    </h2>
-    <p>
-     Starting kernel ...
-    </p>
-    <p>
-     Booting AR7240(Python)…
-~~~
-    </p>
+## Transferring control to Linux (at address 80211000) ...
+## Giving linux memsize in bytes, 16777216
+
+Starting kernel ...
+
+Booting AR7240(Python)…
+</code></pre>
     <p>
      So I did, and ended up in the U-Boot boot manager. I looked at the environment variables set at boot time and changed them.
     </p>
     <p>
      Boot variables:
     </p>
-    <p>
-     ~~~bash
-arg 4: init=/sbin/init
+    <pre><code class="bash">arg 4: init=/sbin/init
 arg 6: virian # still strange thing going on with the processor generation
-~~~
-    </p>
+</code></pre>
     <p>
      Changing the boot variables to:
      <code>
@@ -127,7 +117,9 @@ arg 6: virian # still strange thing going on with the processor generation
     </p>
     <p>
      Et voilá we boot into the shell as root user:
-     <img alt="Root" src="images/conn_4.jpg"/>
+    </p>
+    <p>
+     <img alt="Root" src="images/conn_4.jpg" width="500px"/>
     </p>
     <p>
      Unfortunately we also end up having a read only file system, so no password change via passwd but we can inspect the /etc/passwd and
@@ -135,7 +127,9 @@ arg 6: virian # still strange thing going on with the processor generation
       /etc/shadow
      </code>
      file:
-     <img alt="Passwd" src="images/conn_15.jpg"/>
+    </p>
+    <p>
+     <img alt="Passwd" src="images/conn_15.jpg" width="500px"/>
     </p>
     <p>
      As we can see, there are some users w/o password and the root and Admin user share root privileges and the same hash. As with many of these devices, googling the hash reveals the password behind it way too easy. So now we can boot up the device normally, using the init process and login as root having a r/w file system.
@@ -146,26 +140,18 @@ arg 6: virian # still strange thing going on with the processor generation
     <p>
      The first question i faced was, which gen's processor this thing runs under the hood, hidden away under the shield:
     </p>
-    <p>
-     ~~~bash
-system type             : Atheros AR7240 (Python)
-    </p>
-    <h1>
-     looks as if we’re running the old version
-    </h1>
-    <p>
-     processor               : 0
-    </p>
-    <p>
-     cpu model               : MIPS 24K V7.4
-~~~
-    </p>
+    <pre><code class="bash">system type             : Atheros AR7240 (Python)
+
+#looks as if we’re running the old version
+
+processor               : 0
+
+cpu model               : MIPS 24K V7.4
+</code></pre>
     <p>
      Let’s look at the processes running after startup, ps spits out:
     </p>
-    <p>
-     ~~~bash
-217 root        124 S   /usr/sbin/telnetd
+    <pre><code class="bash">217 root        124 S   /usr/sbin/telnetd
 220 root         56 D   /bin/factoryreset /dev/freset
 221 root        392 S   my_httpd
 222 root        288 S   netusb_wd CONNECT N3
@@ -176,8 +162,7 @@ system type             : Atheros AR7240 (Python)
 245 root        184 S   udhcpc -b -i br0 -s /etc/udhcpc.script
 285 root        372 S   -sh
 314 root        188 R   ps
-~~~
-    </p>
+</code></pre>
     <p>
      Interesting to us are netusb and awdp, the last one of which i still don’t know anything about, but netusb rings the alarm bells in every security enthusiast’s mind, as there was a hole discovered in the software mid 2015 caused by a buffer overflow.
     </p>
@@ -230,15 +215,15 @@ system type             : Atheros AR7240 (Python)
    </div>
   </footer>
   <!-- Scripts -->
-  <script src="assets/js/jquery.min.js">
+  <script src="../../assets/js/jquery.min.js">
   </script>
-  <script src="assets/js/jquery.scrolly.min.js">
+  <script src="../../assets/js/jquery.scrolly.min.js">
   </script>
-  <script src="assets/js/skel.min.js">
+  <script src="../../assets/js/skel.min.js">
   </script>
-  <script src="assets/js/util.js">
+  <script src="../../assets/js/util.js">
   </script>
-  <script src="assets/js/main.js">
+  <script src="../../assets/js/main.js">
   </script>
  </body>
 </html>
