@@ -58,7 +58,7 @@
      </p>
     </header>
     <p>
-     Python's Generator functions and expressions introduced lazy evaluation syntax into an previously mostly eagerly evaluated ecosystem. Laziness was first introduced in functional programming languages and that's for a reason. To assure a function can be evaluated at any time, yet yield the same result requires referential transparency.
+     Python's Generator functions and expressions introduced lazy evaluation syntax into a previously mostly eagerly evaluated ecosystem. Laziness was first introduced in functional programming languages and that's for a reason: To assure a function can be evaluated at any time yet yield the same result requires referential transparency.
     </p>
     <p>
      This poses the question: Is there any thing close to referential transparency in Python?
@@ -88,7 +88,7 @@ There's not even constants, so an easy shot is to just answer: Nope.
      <code>
       g
      </code>
-     and see what happens. Since it is lazy we can easily call it on an infinite structure. Calling it like that also proofs its laziness once and for all.
+     and see what happens. Since it is lazy we can easily call it on an infinite structure. Calling it like that also proofs its laziness once and for all:
     </p>
     <pre><code class="python">&gt;&gt;&gt; from itertools import count
 &gt;&gt;&gt; gen = g(count())
@@ -110,12 +110,12 @@ There's not even constants, so an easy shot is to just answer: Nope.
 &gt;&gt;&gt; next(gen)
 10
 </code></pre>
-    <h2>
+    <h3>
      Now that sucks
-    </h2>
+    </h3>
     <p>
      There's no referential transparency. Or is there?
-Well it comes down to conventionalism. That's the charm of Python I guess.
+Well it comes down to conventionalism. That's the charm of Python, I guess.
 Let's change our interpretation of a generator function from being the lazy equivalent of a usual function to being the constructor of such an equivalent.
     </p>
     <p>
@@ -134,7 +134,7 @@ Let's change our interpretation of a generator function from being the lazy equi
      to create a generator in an confined namespace:
     </p>
     <pre><code class="python">&gt;&gt;&gt; def g(f,xs):
-     yield from (f(x) for x in xs)
+        yield from (f(x) for x in xs)
 </code></pre>
     <p>
      For convenience the for-loop expression was substituted with a generator expression. The important difference is the introduction of an inner scoped function
