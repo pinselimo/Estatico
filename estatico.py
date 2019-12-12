@@ -29,20 +29,18 @@ def main():
     update_posts()
 
 def add_posts():
-    pages = get_blogs()
-    posts = get_posts()
+    content = content_paths()
+    posts = post_paths()
 
-    for post in new_content(pages, posts):
-        updated = add_post(post)
-        print("New Posts: {}".format(updated))
+    added = (add_post(post) for post in new_content(content, posts))
+    print("New Pages: {}".format(any(added)))
 
 def update_posts():
-    pages = [(p,os.path.getmtime(p)) for p in content_paths()]
+    content = [(p,os.path.getmtime(p)) for p in content_paths()]
     posts = [(p,os.path.getmtime(p)) for p in post_paths()]
 
-    for post in modified(pages, posts):
-        updated = update_post(post)
-        print("New Posts: {}".format(updated))
+    updated = (update_post(post) for post in modified(content, posts))
+    print("Updated Posts: {}".format(any(updated)))
 
 def blog_paths():
     return [
@@ -82,24 +80,12 @@ def read_post(filepath):
             features='html.parser'
             )
 
-def new_content(pages, posts):
-    headings = {
-        s.get_text().lower().strip() 
-        for s in reduce(
-            lambda a,b: a+b, 
-                [
-                soup.find(**ID_MAIN).div.find_all(H3) 
-                for soup in pages
-                ],[]
-            )
-        }
-        
-    return (
-        cont_soup
-        for cont_soup in posts
-        for title in (cont_soup.h1.get_text().lower().strip(),)
-        if title not in headings
-    )
+def read_post_with_path(filepath):
+    return ('.'.join(os.path.split(filepath)[-1].split('.')[:-1]+['html']), read_post(filepath))
+
+def new_content(content, posts):
+    cs = {os.path.split(c)[-1].split('.')[-2] for c in content}
+    yield from (p for p in posts if os.path.split(p)[-1].split('.')[-2] not in cs)
 
 def modified(content, posts):
     yield from (p[0] for c,p in zip(content, posts) if c[1] < p[1])
@@ -110,7 +96,7 @@ def update_post(post):
     )
 
 def update_post_content(post):
-    return add_post_content(read_post(post))
+    return add_post_content(*read_post_with_path(post))
 
 def update_post_teaser(link, title, teaser):
     for filepath in blog_paths(): 
@@ -125,11 +111,10 @@ def update_post_teaser(link, title, teaser):
                 return True
     else:
         return False
-            
 
 def add_post(post):
     return add_post_link(
-        add_post_content(post)
+        add_post_content(*read_post_with_path(post))
     )
 
 def dissect(post):
@@ -139,15 +124,14 @@ def dissect(post):
         '<br>'.join(post.get_text().splitlines()[1:])
     )
 
-def add_post_content(post_soup):
+def add_post_content(filename, post_soup):
     with open(POST_TEMPLATE,'r') as temp:
         soup = BeautifulSoup(temp.read(),features='html.parser')
 
     title = post_soup.h1.text
     subtitle = post_soup.h2.text
     teaser = post_soup.p.text
-    filename = CONT_NAME.format('_'.join(title.split(' ')).lower())
-    filepath = check_exist(os.path.join(CONTENT_FOLDER, filename))
+    filepath = os.path.join(CONTENT_FOLDER, filename)
 
     for img in post_soup.find_all('img'):
         img['width'] = IMAGE_SIZE
@@ -213,15 +197,21 @@ def sortedbycdate(folder, files):
 def sortedbymdate(folder, files):
     return sorted(files, key=lambda f: os.path.getmtime(os.path.join(folder,f)))
 
+# unused / unnecessary - names are now copied. Maybe useful for blog page naming?
 def check_exist(filepath):
-    if os.path.exists(filepath):
+    absolute_filepath = os.path.join(STATIC_FOLDER,filepath)
+    if os.path.exists(absolute_filepath):
         spl = filepath.split('.')
         name = spl[-2]
         try:
             num = int(name.split('_')[-1])
             num += 1
         except ValueError:
-            os.rename(filepath,'.'.join(spl[:-2]+[name+'_0',spl[-1]]))
+            with open(absolute_filepath, 'r') as f:
+                content = f.read()
+            os.unlink(absolute_filepath)
+            with open(os.path.join(STATIC_FOLDER,'.'.join(spl[:-2]+[name+'_0',spl[-1]])), 'w') as f:
+                f.write(content)
             num = 1
         return '.'.join(spl[:-2]+[name+'_%i'%num,spl[-1]])
     else:

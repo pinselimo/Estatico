@@ -1,6 +1,6 @@
 # Python's referential transparency
 
-## Part 1 - a rant
+## Part 1 - A rant
 
 Python's Generator functions and expressions introduced lazy evaluation syntax into an previously mostly eagerly evaluated ecosystem. Laziness was first introduced in functional programming languages and that's for a reason. To assure a function can be evaluated at any time, yet yield the same result requires referential transparency.
 
