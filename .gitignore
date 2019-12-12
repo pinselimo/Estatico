@@ -1,3 +1,5 @@
 *.jpg
 *.pyc
 *.json
+blog/*.html
+blog/content/*.html
