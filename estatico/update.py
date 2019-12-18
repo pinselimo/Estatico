@@ -9,8 +9,7 @@ def update_posts():
     content = [(p,os.path.getmtime(p)) for p in content_paths()]
     posts = [(p,os.path.getmtime(p)) for p in post_paths()]
 
-    updated = [update_post(post) for post in modified(content, posts)]
-    print("Updated Posts: {}".format(any(updated)))
+    return [update_post(post) for post in modified(content, posts)]
 
 def modified(content, posts):
     yield from (p[0] for c,p in zip(content, posts) if c[1] < p[1])

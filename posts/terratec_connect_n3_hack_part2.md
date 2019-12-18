@@ -1,6 +1,7 @@
 # TerraTec Connect N3 Hack Part 2
 
 ## Opening doors, exploring the jungle
+
 Having my UART stick connected to my computer I started screen to try out different bitrates, ending up at 115.200 bit/s which finally had me seeing meaningful ASCII on my screen and entering my home field: the software.
 
 ![Boot screen](images/conn_2.jpg)

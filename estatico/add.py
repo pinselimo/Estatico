@@ -8,9 +8,8 @@ def add_posts():
     content = content_paths()
     posts = post_paths()
 
-    added = [add_post(post) for post in new_content(content, posts)]
-    print("New Pages: {}".format(any(added)))
-
+    return [add_post(post) for post in new_content(content, posts)]
+    
 def new_content(content, posts):
     cs = {os.path.split(c)[-1].split('.')[-2] for c in content}
     yield from (p for p in posts if os.path.split(p)[-1].split('.')[-2] not in cs)

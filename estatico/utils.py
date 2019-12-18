@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from markdown import markdown
 
 from .setup import STATIC_FOLDER, STATIC_FOLDER, POST_FOLDER, CONTENT_FOLDER_ABSOLUTE, \
-    POST_FORMATS, CONT_NAME
+    POST_FORMATS, CONT_NAME, IMAGE_PATH_ABSOLUTE, IMAGE_FORMATS
 
 HTML = '.html'
 
@@ -18,21 +18,28 @@ def blog_paths():
     return [
         os.path.join(STATIC_FOLDER,file)
         for file in sortedbycdate(STATIC_FOLDER, os.listdir(STATIC_FOLDER))
-        if file.endswith(HTML)
+        if file.lower().endswith(HTML)
         ]
 
 def post_paths():
     return [
         os.path.join(POST_FOLDER,file)
         for file in sortedbycdate(POST_FOLDER, os.listdir(POST_FOLDER))
-        if any(file.endswith(end) for end in POST_FORMATS)
+        if any(file.lower().endswith(end) for end in POST_FORMATS)
         ]
 
 def content_paths():
     return [
         os.path.join(CONTENT_FOLDER_ABSOLUTE,file)
         for file in sortedbycdate(CONTENT_FOLDER_ABSOLUTE, os.listdir(CONTENT_FOLDER_ABSOLUTE))
-        if file.endswith(HTML)
+        if file.lower().endswith(HTML)
+        ]
+
+def image_paths():
+    return [
+        os.path.join(IMAGE_PATH_ABSOLUTE, file)
+        for file in sortedbycdate(IMAGE_PATH_ABSOLUTE, os.listdir(IMAGE_PATH_ABSOLUTE))
+        if any(file.lower().endswith(end) for end in IMAGE_FORMATS)
         ]
 
 def get_blogs():

@@ -3,3 +3,4 @@
 *.json
 blog/*.html
 blog/content/*.html
+*_.cfg

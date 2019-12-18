@@ -1,21 +1,34 @@
-import os
+from configparser import ConfigParser, ExtendedInterpolation
 
-STATIC_FOLDER = 'blog'
-POST_FOLDER = 'posts'
-TEMPLATE_FOLDER_ABSOLUTE = os.path.join(STATIC_FOLDER,'templates')
-CONTENT_FOLDER = 'content'
-CONTENT_FOLDER_ABSOLUTE = os.path.join(STATIC_FOLDER, CONTENT_FOLDER)
-IMAGE_PATH = 'images'
-IMAGE_PATH_ABSOLUTE = os.path.join(CONTENT_FOLDER_ABSOLUTE, IMAGE_PATH)
-IMAGE_SIZE = '500px'
-POST_FORMATS = ['.md','.html']
-PAGE_NAME = 'blog_{}.html'
-CONT_NAME = '{}.html'
-TEMPLATE = os.path.join(TEMPLATE_FOLDER_ABSOLUTE, PAGE_NAME.format('template'))
-POST_TEMPLATE = os.path.join(TEMPLATE_FOLDER_ABSOLUTE, CONT_NAME.format('post_template'))
-POST_PREVIEW_TEMPLATE = '<p><h3><a href={}>{}</a></h3>{}'
-ID_BLOG_LINKS = {id:'bloglinks'}
-LIMIT = 10
-ID_MAIN = {'id':'main'}
-H3 = 'h3'
-MORE =  'More..'
+SETUP = 'setup.cfg'
+
+config = ConfigParser(interpolation=ExtendedInterpolation(), delimiters=('=',), comment_prefixes=(';',), inline_comment_prefixes=())
+config.read(SETUP)
+
+template = config['template']
+STATIC_FOLDER = template['STATIC_FOLDER']
+POST_FOLDER = template['POST_FOLDER']
+TEMPLATE_FOLDER_ABSOLUTE = template['TEMPLATE_FOLDER_ABSOLUTE']
+CONTENT_FOLDER = template['CONTENT_FOLDER']
+CONTENT_FOLDER_ABSOLUTE = template['CONTENT_FOLDER_ABSOLUTE']
+IMAGE_PATH = template['IMAGE_PATH_ABSOLUTE']
+IMAGE_PATH_ABSOLUTE = template['IMAGE_PATH_ABSOLUTE']
+IMAGE_SIZE = template['IMAGE_SIZE']
+IMAGE_FORMATS = list(template['IMAGE_FORMATS'].split(','))
+POST_FORMATS = list(template['POST_FORMATS'].split(','))
+PAGE_NAME = template['PAGE_NAME']
+CONT_NAME = template['CONT_NAME']
+TEMPLATE = template['PAGE_TEMPLATE_NAME']
+POST_TEMPLATE = template['POST_TEMPLATE_NAME']
+POST_PREVIEW_TEMPLATE = template['POST_PREVIEW_TEMPLATE']
+ID_BLOG_LINKS = {'id':template['ID_BLOG_LINKS']}
+LIMIT = int(template['LIMIT'])
+ID_MAIN = {'id':template['ID_BLOGENTRY']}
+H3 = template['TAG_HEADING']
+MORE =  template['MORE']
+
+server = config['server']
+SERVERNAME = server['SERVERNAME']
+USERNAME = server['USERNAME']
+PASSWD = server['PASSWD']
+BLOG_SERVERSIDE_DIRECTORY = server['BLOG_SERVERSIDE_DIRECTORY']
