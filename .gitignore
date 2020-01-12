@@ -4,3 +4,4 @@
 blog/*.html
 blog/content/*.html
 *_.cfg
+_*.md

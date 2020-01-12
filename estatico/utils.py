@@ -26,6 +26,7 @@ def post_paths():
         os.path.join(POST_FOLDER,file)
         for file in sortedbycdate(POST_FOLDER, os.listdir(POST_FOLDER))
         if any(file.lower().endswith(end) for end in POST_FORMATS)
+        and not file.startswith('_')
         ]
 
 def content_paths():
