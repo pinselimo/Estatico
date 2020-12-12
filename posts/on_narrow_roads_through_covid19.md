@@ -16,7 +16,7 @@ Fortunately, I have a traffic model at hand to show me a glance of realities I c
 
 ### Bird's eye view
 
-First a brief introduction. Let's assume you have a map of your respective city. In our case that's Graz and for our map service we use [OpenStreetMaps](https://www.openstreetmap.org/search?query=Graz#map=13/47.0721/15.4375). Now you just blend everything out but the roads you could legally drive a car on. Consider all intersections and points of interenst vertices and the roads in between them as edges et voilá: You have a road network representation of the city. *(Shoutout to Goeff Boeing for providing the awesome [OSMnx](https://github.com/gboeing/osmnx) tool)*
+First a brief introduction. Let's assume you have a map of your respective city. In our case that's Graz and for our map service we use [OpenStreetMaps](https://www.openstreetmap.org/search?query=Graz#map=13/47.0721/15.4375). Now you just blend everything out but the roads you could legally drive a car on. Consider all intersections and points of interenst vertices and the roads in between them as edges et voilÃ¡: You have a road network representation of the city. *(Shoutout to Goeff Boeing for providing the awesome [OSMnx](https://github.com/gboeing/osmnx) tool)*
 
 ![Fig.1: Congestion at 7 AM in the City of Graz in the before times, according to our model](images/corona_graz_before.png)
 
@@ -94,8 +94,9 @@ What if the demand switches back to one similar as observed in the before times?
 
 ### Con-close-io
 
-Soon the lockdown will be over, but the required distance among people will be kept in place. Consequently, we can expect even more people on the sidewalks. Probably we will also see more cars on the roads again. We might have just missed the perfect time to shift peoples mobility behaviour towards more sustainable modes of transport. It is times like these, where people can open there minds towards change. They have to. Many people are forced to reduce their time spent outside their homes to bike rides and walks. Now more than ever we can see the value of space in our cities. 
+Soon the lockdown will be over, but the required distance among people will be kept in place. Consequently, we can expect even more people on the sidewalks. Probably we will also see more cars on the roads again. We might have just missed the perfect time to shift peoples mobility behaviour towards more sustainable modes of transport. It is times like these, where people can open there minds towards change. They have to. Many people are forced to reduce their time spent outside their homes to bike rides and walks. Now more than ever we can see the value of space in our cities.
 
 So what's the take-away from my blog post? What's the story of these simulation runs? 
 
 My aim was not to show what the world would look like if we closed roads and reduced speed limits. I cannot stress enough how limited such a model is in telling us things about the world around us. I just wanted to seed an idea, to show that the world would not collapse if we tried something new. Something radical in a time of forced radical change.
+
