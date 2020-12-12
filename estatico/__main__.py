@@ -1,4 +1,4 @@
-from .add import add_posts 
+from .add import add_posts
 from .update import update_posts
 from .ftp import upload_all
 
@@ -10,11 +10,10 @@ if __name__ == '__main__':
     print('Updated {} posts'.format(len(list(filter(lambda x:x, updated)))))
     if updated or added:
         print('Uploading...', end=' ')
-        try: 
+        try:
             upload_all()
+            print('\rUpload successful!')
         except Exception as e:
             print('\rUpload failed with exception: {}'.format(e))
-        finally:
-            print('\rUpload successful!')
     else:
         print('Nothing to upload.')
