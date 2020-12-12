@@ -15,7 +15,7 @@ def get_encoding(filename):
     return detector.result['encoding']
 
 def convert(filename):
-    encoding = get_enconding(filename)
+    encoding = get_encoding(filename)
     if encoding != TARGET_ENCODING:
         with codecs.open(filename, 'r', encoding) as f:
             contents = f.read()
