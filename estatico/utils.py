@@ -2,6 +2,7 @@ import os
 from bs4 import BeautifulSoup
 from markdown import markdown
 
+from .convert import convert
 from .setup import STATIC_FOLDER, STATIC_FOLDER, POST_FOLDER, CONTENT_FOLDER_ABSOLUTE, \
     POST_FORMATS, CONT_NAME, IMAGE_PATH_ABSOLUTE, IMAGE_FORMATS
 
@@ -10,7 +11,7 @@ HTML = '.html'
 def dissect(post):
     return (
         post.a['href'],
-        post.h3.get_text(), 
+        post.h3.get_text(),
         '<br>'.join(post.get_text().splitlines()[1:])
     )
 
@@ -48,15 +49,16 @@ def get_blogs():
 
 def get_posts():
     return [read_post(fp) for fp in post_paths()]
-   
+
 def read_blog(filepath):
     with open(filepath,'r') as f:
         return BeautifulSoup(f.read(), features='html.parser')
 
 def read_post(filepath):
+    convert(filepath) # Converts to UTF-8 if necessary
     with open(filepath,'r') as f:
         return BeautifulSoup(
-            markdown(f.read(),extensions=['fenced_code']), 
+            markdown(f.read(),extensions=['fenced_code']),
             features='html.parser'
             )
 
