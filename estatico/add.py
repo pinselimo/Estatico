@@ -9,7 +9,7 @@ def add_posts():
     posts = post_paths()
 
     return [add_post(post) for post in new_content(content, posts)]
-    
+
 def new_content(content, posts):
     cs = {os.path.split(c)[-1].split('.')[-2] for c in content}
     yield from (p for p in posts if os.path.split(p)[-1].split('.')[-2] not in cs)
@@ -48,3 +48,4 @@ def add_post_link(post):
             f.write(str(soup.prettify()))
 
     return i+1 > len(curr) # New pages added?
+
