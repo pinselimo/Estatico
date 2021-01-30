@@ -58,8 +58,8 @@ For convenience the for-loop expression was substituted with a generator express
 >>> gen = g(f,count())
 >>> [next(gen) for _ in range(10)]
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
->>>f = lambda x: x+x
->>>next(gen)
+>>> f = lambda x: x+x
+>>> next(gen)
 10
 ~~~
 
