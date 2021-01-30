@@ -23,16 +23,21 @@ Speaking of idealistic contexts - Python is not among those. Meanwhile, it is to
 A fun context to check isomorphisms in Python is when it comes to boolean values:
 
 ~~~python
-print('Empty lists') if [] else print('No empty lists')
-print('Values below zero' if -1 else print('No values below zero')
-print('Zero?') if 0 else print('Zero is False')
+>>> print('Empty lists') if [] else print('No empty lists')
+No empty lists
+>>> print('Values below zero') if -1 else print('No values below zero')
+Values below zero
+>>> print('Zero?') if 0 else print('Zero is False')
+Zero is False
 ~~~
 
 ok those are common knowledge. Empty collections are False and Zero (```0```) is also False. Let's look at more stupid ones:
 
 ~~~python
-print('Objects') if object() else print('No objects')
-print('Lambdas') if (lambda x:x) else print('No lambdas')
+>>> print('Objects') if object() else print('No objects')
+Objects
+>>> print('Lambdas') if (lambda x:x) else print('No lambdas')
+Lambdas
 ~~~
 
 Yes, pretty much everything else is considered ```True``` ! Ugh.
@@ -46,7 +51,8 @@ This time I encountered a method which should return a boolean value, but was in
 And that last line actually serves an ugly solution. It's maybe the only solution:
 
 ~~~python
-print('Lambda accepted') if ((lambda x:x) == True) else print('Lambda rejected')
+>>> print('Lambda accepted') if ((lambda x:x) == True) else print('Lambda rejected')
+Lambda rejected
 ~~~
 
 That's right! Objects are considered ```True```, yet not **equal** to ```True```. Welcome to the weird isomorphisms of Python.
